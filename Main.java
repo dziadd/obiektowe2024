@@ -14,17 +14,17 @@ class zadania {
 
             public static void main(String[] args) {
                 Scanner scan = new Scanner(System.in);
-//                System.out.println("Podaj liczbę, by sprawdzić czy jest palindromem?");
-//                String liczba = scan.nextLine();
-//                boolean b1 = palindrom(liczba);
-//                System.out.println(liczba + " " + b1);
+                System.out.println("Podaj liczbę, by sprawdzić czy jest palindromem?");
+                String liczba = scan.nextLine();
+                boolean b1 = palindrom(liczba);
+                System.out.println(liczba + " " + b1);
 
 
-                System.out.println("Podaj wysokość trójkąta pascala:");
-                int n = scan.nextInt();
+                System.out.println("Podaj n trójkąta pascala:");
+                int n = scan.nextInt() + 1;
 
                 for (int l = 0; l < n; l++) {
-                    for(int spc = 0; l < n; l++){
+                    for(int spc = 0; spc < n - l - 1; spc++){
                         System.out.print(" ");
                     }
                     int one = 1;
