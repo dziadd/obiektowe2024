@@ -324,105 +324,57 @@ class zadania {
 
 
     public static void main(String[] args) {
-//        int n = 20;
-//        trojkiPitagorejskie(n);
+
+//        trojkiPitagorejskie(20);
+//
+//        funKwaRozwiazania(1);
+//
+//        funKwaDelta(5);
 //
 //
 //
-//        int n1 = 1;
-//        funKwaRozwiazania(n1);
+//
+//        liczbyPierwsze(30);;
+//
+//        LiczbyPodzielne(2, 10);
 //
 //
-//
-//        int n2 = 5;
-//        funKwaDelta(n2);
-//
-//
-//
-//        int n3 = 30;
-//        liczbyPierwsze(n3);;
-//        int m = 2;
-//        int n = 10;
-//        LiczbyPodzielne(m, n);
-//
-//
-//
-//        int n4 = 5;
-//        piramida(n4, 1);
+//        piramida(5, 1);
 //        System.out.println();
-//        piramida(n4, 2);
+//        piramida(5, 2);
 //
 //
+//        silnia(5);
 //
-//        int n5 = 5;
-//        silnia(n5);
+//        silniaPodwojna(8);
 //
+//        silniam(2, 8);
 //
+//        dwumianNewtona(4,8);
 //
-//        int n6 = 8;
-//        silniaPodwojna(n6);
+//        ciagFibonnaciego(20);
+//        
+//        palindromwyraz("kajak");
 //
-//
-//
-//        int n7 = 8;
-//        int m = 2;
-//        silniam(m, n7);
-//
-//
-//
-//        int n8 = 8;
-//        int k = 4;
-//        dwumianNewtona(k, n8);
-//
-//
-//
-//        int n9 = 20;
-//        ciagFibonnaciego(n9);
-//
-//
-//
-//        String wyraz = "kajak";
-//        palindromwyraz(wyraz);
-//
-//
-//
-//        String s = "55";
-//        palindrom(s);
-//
-//
-//
-//        int n0 = 12;
-//        sumanaturalnych(n0);
-//
-//        int n10 = 10;
-//        sumaparzystych(n10);
-//
-//        int n11 = 10;
-//        sumanieparzystych(n11);
-//
-//        int n12 = 4;
-//        sumaKwaNaturalnych(n12);
-//
-//        int n13 = 4;
-//        sumaSzeNaturalnych(n13);
-//
-//        double n14 = 2;
-//        sumaOdwNaturalnych(n14);
-//
-//
-//
-//        int n15 = 4;
-//        trojkatpascala(n15);
-//
-//
-//        int n16 = 6;
-//        czyDoskonala(n16);
-//
-//
-//
-//        int a = 90;
-//        int b = 81;
-//        NWD(a, b);
+//        palindrom("55");
+//        
+//        sumanaturalnych(12);
+//        
+//        sumaparzystych(10);
+//        
+//        sumanieparzystych(10);
+//        
+//        sumaKwaNaturalnych(4);
+//        
+//        sumaSzeNaturalnych(4);
+//        
+//        sumaOdwNaturalnych(2);
+//        
+//        trojkatpascala(4);
+//        
+//        czyDoskonala(6);
+//        
+//        NWD(90, 81);
 //
 //        int n17 = 0;
 //        Scanner sc = new Scanner(System.in);
@@ -452,9 +404,3 @@ class zadania {
 
     }
 }
-
-
-
-
-
-
