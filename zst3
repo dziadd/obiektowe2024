@@ -261,86 +261,145 @@ class zadania {
         }
     }
 
+    public static void czyDoskonala(int n16){
+
+        int sumaDzielnikow = 0;
+
+        for (int i = 1; i <= n16 / 2; i++) {
+            if (n16 % i == 0) {
+                sumaDzielnikow += i;
+            }
+        }
+
+        if (sumaDzielnikow == n16) {
+            System.out.println(n16 + " jest doskonala.");
+        } else {
+            System.out.println(n16 + " nie jest doskonała.");
+        }
+    }
+
+
+    public static void NWD(int a, int b){
+        int nwsd = 0;
+        for(int i = Math.min(a,b); i >= 1; i--){
+            if(a%i == 0 && b%i == 0){
+                nwsd = i;
+                break;
+            }
+        }
+        System.out.print(nwsd);
+    }
+
+    public static void WczytajTablice(int n17){ //wczytywanie tablicy i jej podzbiorow
+
+        int[] tab = new int[n17];
+
+        for(int i = 0; i < n17; i++){
+            tab[i] = i + 1;
+        }
+        System.out.print("{ ");
+        System.out.print("| ");
+        for (int i = 0; i < tab.length; i++) {
+            System.out.print(tab[i] + " | ");
+        }
+        System.out.print("}");
+        System.out.println();
+
+        int liczbaPodzbiorow = (1 << n17);
+        for (int maska = 0; maska < liczbaPodzbiorow; maska++) {
+            System.out.print("{ ");
+            for (int i = 0; i < n17; i++) {
+                if ((maska & (1 << i)) != 0) {
+                    System.out.print(tab[i] + " ");
+                }
+            }
+            System.out.print("} ");
+        }
+        System.out.print("}");
+
+    }
+
+
+
+
 
     public static void main(String[] args) {
 //        int n = 20;
 //        trojkiPitagorejskie(n);
-
-//        System.out.println("_______________________________________");
-
+//
+//
+//
 //        int n1 = 1;
 //        funKwaRozwiazania(n1);
-
-//        System.out.println("_______________________________________");
-
+//
+//
+//
 //        int n2 = 5;
 //        funKwaDelta(n2);
-
-//        System.out.println("_______________________________________");
-
+//
+//
+//
 //        int n3 = 30;
 //        liczbyPierwsze(n3);;
 //        int m = 2;
 //        int n = 10;
-//        System.out.println("_______________________________________");
-
 //        LiczbyPodzielne(m, n);
+//
+//
+//
 //        int n4 = 5;
-
-//        System.out.println("_______________________________________");
-
 //        piramida(n4, 1);
 //        System.out.println();
 //        piramida(n4, 2);
-
-//        System.out.println("_______________________________________");
-
+//
+//
+//
 //        int n5 = 5;
 //        silnia(n5);
-
-//        System.out.println("_______________________________________");
-
+//
+//
+//
 //        int n6 = 8;
 //        silniaPodwojna(n6);
-
-//        System.out.println("_______________________________________");
-
+//
+//
+//
 //        int n7 = 8;
 //        int m = 2;
 //        silniam(m, n7);
-
-//        System.out.println("_______________________________________");
-
+//
+//
+//
 //        int n8 = 8;
 //        int k = 4;
 //        dwumianNewtona(k, n8);
-
-//        System.out.println("_______________________________________");
-
+//
+//
+//
 //        int n9 = 20;
 //        ciagFibonnaciego(n9);
-
-//        System.out.println("_______________________________________");
-
+//
+//
+//
 //        String wyraz = "kajak";
 //        palindromwyraz(wyraz);
-
-//        System.out.println("_______________________________________");
-
+//
+//
+//
 //        String s = "55";
 //        palindrom(s);
 //
-//        System.out.println("_______________________________________");
-
+//
+//
 //        int n0 = 12;
 //        sumanaturalnych(n0);
-
+//
 //        int n10 = 10;
 //        sumaparzystych(n10);
-
+//
 //        int n11 = 10;
 //        sumanieparzystych(n11);
-
+//
 //        int n12 = 4;
 //        sumaKwaNaturalnych(n12);
 //
@@ -349,13 +408,41 @@ class zadania {
 //
 //        double n14 = 2;
 //        sumaOdwNaturalnych(n14);
-
-//        System.out.println("_______________________________________");
-
+//
+//
+//
 //        int n15 = 4;
 //        trojkatpascala(n15);
 //
-//        System.out.println("_______________________________________");
+//
+//        int n16 = 6;
+//        czyDoskonala(n16);
+//
+//
+//
+//        int a = 90;
+//        int b = 81;
+//        NWD(a, b);
+//
+//        int n17 = 0;
+//        Scanner sc = new Scanner(System.in);
+//        System.out.println("Podaj liczbę do wczytania tablicy: ");
+//        n17 = sc.nextInt();
+//        WczytajTablice(n17);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
