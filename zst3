@@ -1,0 +1,373 @@
+import java.util.Scanner;
+
+class zadania {
+    public static boolean palindrom(String s) { //funkcja do sprawdzania palindromu
+        for (int i = 0, j = s.length() - 1; i < j; i++, j--) {
+            if (s.charAt(i) != s.charAt(j)) {
+                System.out.println("nie");
+                return false;
+            }
+        }
+        System.out.println("tak");
+        return true;
+    }
+
+    public static boolean palindromwyraz(String wyraz){
+
+        wyraz = wyraz.toLowerCase();
+
+        int l = 0;
+        int r = wyraz.length() - 1;
+
+        while (l<r){
+            if (wyraz.charAt(l) != wyraz.charAt(r)){
+                System.out.println("nie");
+                return false;
+            }
+            l++;
+            r--;
+        }
+        System.out.println("tak");
+        return true;
+    }
+
+    public static void trojkiPitagorejskie(int n) {
+        // Iterujemy przez możliwe wartości a, b i c
+        for (int a = 1; a <= n; a++) {
+            for (int b = a; b <= n; b++) {  // b >= a, aby uniknąć duplikatów
+                int c = (int) Math.sqrt(a * a + b * b);
+                // Sprawdzamy, czy c jest całkowite i mniejsze lub równe n
+                if (c <= n && c * c == a * a + b * b) {
+                    System.out.println("(" + a + ", " + b + ", " + c + ")");
+                }
+            }
+        }
+    }
+
+    public static void funKwaRozwiazania(int n1) {
+        // Iteracja przez wartości a, b, c w zakresie od -n do n
+        for (int a = -n1; a <= n1; a++) {
+            if (a == 0) continue;  // Pomijamy a = 0, aby zachować równanie kwadratowe
+
+            for (int b = -n1; b <= n1; b++) {
+                for (int c = -n1; c <= n1; c++) {
+                    // Obliczamy deltę: Δ = b^2 - 4ac
+                    int delta = b * b - 4 * a * c;
+
+                    // Sprawdzamy, czy delta jest >= 0 (warunek na istnienie rozwiązań rzeczywistych)
+                    if (delta >= 0) {
+                        System.out.println("(" + a + ", " + b + ", " + c + ")");
+                    }
+                }
+            }
+        }
+    }
+
+    public static void funKwaDelta(int n2) {
+        // Iteracja przez wartości a, b, c w zakresie od -n do n
+        for (int a = -n2; a <= n2; a++) {
+            if (a == 0) continue;  // Pomijamy a = 0, aby zachować równanie kwadratowe
+
+            for (int b = -n2; b <= n2; b++) {
+                for (int c = -n2; c <= n2; c++) {
+                    // Obliczamy deltę: Δ = b^2 - 4ac
+                    int delta = b * b - 4 * a * c;
+
+                    // Sprawdzamy, czy delta jest >= 0 i czy jej pierwiastek jest liczbą całkowitą
+                    if (delta >= 0) {
+                        int sqrtDelta = (int) Math.sqrt(delta);
+                        if (sqrtDelta * sqrtDelta == delta) {  // Czy sqrt(delta) jest całkowity
+                            System.out.println("(" + a + ", " + b + ", " + c + ")");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public static boolean czyPierwsza(int liczba) {
+        if (liczba < 2) return false;
+        for (int i = 2; i * i <= liczba; i++) {
+            if (liczba % i == 0) return false; // Jeśli liczba ma dzielnik, nie jest pierwsza
+        }
+        return true;
+    }
+
+    // Funkcja do wypisania wszystkich liczb pierwszych od 2 do n3
+    public static void liczbyPierwsze(int n3) {
+        for (int i = 2; i <= n3; i++) {
+            if (czyPierwsza(i)) {
+                System.out.print(i + " ");
+            }
+        }
+        System.out.println();
+    }
+
+    public static void LiczbyPodzielne(int m, int n3){
+        int poczatek = (int) Math.pow(10, m - 1); //najmniiejsza liczba n cyfrowa
+        int koniec = (int) Math.pow(10, m) - 1; // najwieksza liczba n cyfrowa
+
+        for (int i = poczatek; i <= koniec; i++){
+            if (i % n3 == 0) {
+                System.out.print(i + " ");
+            }
+        }
+        System.out.println();
+    }
+
+    public static void piramida(int n4, int variant) {
+        String a = "*";
+
+        if (variant == 1) {
+            for (int i = 1; i <= n4; i++) {
+                for (int j = 1; j <= n4 - i; j++) {
+                    System.out.print(" ");
+                }
+                for (int k = 1; k <= 2 * i - 1; k++) {
+                    System.out.print(a);
+                }
+                System.out.println();
+            }
+        }
+
+        if (variant == 2) {
+            for (int i = n4; i >= 1; i--) {
+                for (int j = 1; j <= n4 - i; j++) {
+                    System.out.print(" ");
+                }
+                for (int k = 1; k <= 2 * i - 1; k++) {
+                    System.out.print(a);
+                }
+                System.out.println();
+            }
+        }
+    }
+
+    public static void silnia(int n5){
+        int wynik = 1;
+        for (int i = 1; i <= n5; i++){
+            wynik = wynik * i;
+        }
+        System.out.println(wynik);
+    }
+
+    public static void silniaPodwojna(int n6){
+        int wynik = 1;
+        for (int i = n6; i > 0; i -= 2){
+            wynik = wynik * i;
+        }
+        System.out.println(wynik);
+    }
+
+    public static void silniam(int m, int n7){
+        int wynik = 1;
+        for (int i = n7; i > 0; i -= m){
+            wynik = wynik * i;
+        }
+        System.out.println(wynik);
+    }
+
+    public static long dwumianNewtona(int k, int n8){
+        if(k > n8) return 0;
+        long wn= 1;
+        for(int i = 1; i <= k; i++){
+            wn = wn * (n8 - i + 1)/i;
+        }
+        System.out.println(wn);
+        return wn;
+    }
+
+    public static void ciagFibonnaciego(int n9) {
+        long a = 0, b = 1;
+
+        for (int i = 1; i <= n9; i++) {
+            System.out.print(a+ " ");
+            long nstp = a + b;
+            a = b;
+            b = nstp;
+        }
+    }
+
+    public static int sumanaturalnych(int n0) {
+        int suma = 0;
+        for(int i = 1; i <= n0; i++){
+            suma += i;
+        }
+        System.out.println(suma);
+        return suma;
+    }
+
+    public static int sumaparzystych(int n10) {
+        int suma = 0;
+        for(int i = 1; i <= n10; i++){
+            if(i % 2 == 0){
+                suma += i;
+            }
+        }
+        System.out.println(suma);
+        return suma;
+    }
+
+    public static int sumanieparzystych(int n11) {
+        int suma = 0;
+        for(int i = 1; i <= n11; i++){
+            if(i % 2 != 0){
+                suma += i;
+            }
+        }
+        System.out.println(suma);
+        return suma;
+    }
+
+    public static int sumaKwaNaturalnych(int n12) {
+        int suma = 0;
+        for(int i = 1; i <= n12; i++){
+            suma += i*i;
+        }
+        System.out.println(suma);
+        return suma;
+    }
+
+    public static int sumaSzeNaturalnych(int n13) {
+        int suma = 0;
+        for(int i = 1; i <= n13; i++){
+            suma += i*i*i;
+        }
+        System.out.println(suma);
+        return suma;
+    }
+
+    public static double sumaOdwNaturalnych(double n14 ) {
+        double suma = 0;
+        for(int i = 1; i <= n14; i++){
+            suma += 1.0 / i;
+        }
+        System.out.println(suma);
+        return suma;
+    }
+
+    public static void trojkatpascala(int n15){
+        n15 = n15 + 1;
+        for (int l = 0; l < n15; l++) {
+            for(int spc = 0; spc < n15 - l - 1; spc++){
+                System.out.print(" ");
+            }
+            int one = 1;
+            for (int i = 0; i<=l; i++) {
+                System.out.print(one + " ");
+                one = one * (l - i) / (i + 1);
+            }
+            System.out.println();
+        }
+    }
+
+
+    public static void main(String[] args) {
+//        int n = 20;
+//        trojkiPitagorejskie(n);
+
+//        System.out.println("_______________________________________");
+
+//        int n1 = 1;
+//        funKwaRozwiazania(n1);
+
+//        System.out.println("_______________________________________");
+
+//        int n2 = 5;
+//        funKwaDelta(n2);
+
+//        System.out.println("_______________________________________");
+
+//        int n3 = 30;
+//        liczbyPierwsze(n3);;
+//        int m = 2;
+//        int n = 10;
+//        System.out.println("_______________________________________");
+
+//        LiczbyPodzielne(m, n);
+//        int n4 = 5;
+
+//        System.out.println("_______________________________________");
+
+//        piramida(n4, 1);
+//        System.out.println();
+//        piramida(n4, 2);
+
+//        System.out.println("_______________________________________");
+
+//        int n5 = 5;
+//        silnia(n5);
+
+//        System.out.println("_______________________________________");
+
+//        int n6 = 8;
+//        silniaPodwojna(n6);
+
+//        System.out.println("_______________________________________");
+
+//        int n7 = 8;
+//        int m = 2;
+//        silniam(m, n7);
+
+//        System.out.println("_______________________________________");
+
+//        int n8 = 8;
+//        int k = 4;
+//        dwumianNewtona(k, n8);
+
+//        System.out.println("_______________________________________");
+
+//        int n9 = 20;
+//        ciagFibonnaciego(n9);
+
+//        System.out.println("_______________________________________");
+
+//        String wyraz = "kajak";
+//        palindromwyraz(wyraz);
+
+//        System.out.println("_______________________________________");
+
+//        String s = "55";
+//        palindrom(s);
+//
+//        System.out.println("_______________________________________");
+
+//        int n0 = 12;
+//        sumanaturalnych(n0);
+
+//        int n10 = 10;
+//        sumaparzystych(n10);
+
+//        int n11 = 10;
+//        sumanieparzystych(n11);
+
+//        int n12 = 4;
+//        sumaKwaNaturalnych(n12);
+//
+//        int n13 = 4;
+//        sumaSzeNaturalnych(n13);
+//
+//        double n14 = 2;
+//        sumaOdwNaturalnych(n14);
+
+//        System.out.println("_______________________________________");
+
+//        int n15 = 4;
+//        trojkatpascala(n15);
+//
+//        System.out.println("_______________________________________");
+
+
+
+
+
+
+
+    }
+}
+
+
+
+
+
+
