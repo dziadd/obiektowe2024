@@ -1,0 +1,215 @@
+import java.util.Arrays;
+
+class Zadania {
+
+    public static int[] generujTablice(int n, int minWartosc, int maxWartosc) {
+        int[] tablica = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            tablica[i] = minWartosc + (int) (Math.random() * (maxWartosc - minWartosc + 1));
+        }
+
+        System.out.println(Arrays.toString(tablica));
+
+        return tablica;
+    }
+
+    public static int[][] generujMatrix(int n, int m) {
+        int[][] matrix = new int[n][m];
+        int currentValue = 0;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                matrix[i][j] = currentValue;
+                currentValue++;
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+        return matrix;
+    }
+
+    public static int ileNieparzystych(int[] tab) {
+        int count = 0;
+        for (int num : tab) {
+            if (num % 2 != 0) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static int ileParzystych(int[] tab) {
+        int count = 0;
+        for (int num : tab) {
+            if (num % 2 == 0) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static int ileDodatnich(int[] tab) {
+        int count = 0;
+        for (int num : tab) {
+            if (num > 0) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static int ileUjemnych(int[] tab) {
+        int count = 0;
+        for (int num : tab) {
+            if (num < 0) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static int ileZerowych(int[] tab) {
+        int count = 0;
+        for (int num : tab) {
+            if (num == 0) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static int ileMaxymalnych(int[] tab) {
+        int count = 0;
+        int max = tab[0];
+        for (int num : tab) {
+            if (num > max) {
+                max = num;
+            }
+        }
+        for (int num : tab) {
+            if (num == max) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static int ileMinimalnych(int[] tab) {
+        int count = 0;
+        int min = tab[0];
+        for (int num : tab) {
+            if (num < min) {
+                min = num;
+            }
+        }
+        for (int num : tab) {
+            if (num == min) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static int ileUnikalnych(int[] tab) {
+        int count = 0;
+        for (int i = 0; i < tab.length; i++) {
+            boolean isUnique = true;
+            for (int j = 0; j < i; j++) {
+                if (tab[i] == tab[j]) {
+                    isUnique = false;
+                    break;
+                }
+            }
+            if (isUnique) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static int sumaDodatnich(int[] tab) {
+        int sum = 0;
+        for (int num : tab) {
+            if (num > 0) {
+                sum += num;
+            }
+        }
+        return sum;
+    }
+
+    public static int sumaUjemnych(int[] tab) {
+        int sum = 0;
+        for (int num : tab) {
+            if (num < 0) {
+                sum += num;
+            }
+        }
+        return sum;
+    }
+
+    public static double sumaOdwrotnosci(int[] tab) {
+        double sum = 0.0;
+        for (int num : tab) {
+            if (num != 0) {
+                sum += 1.0 / num;
+            }
+        }
+        return sum;
+    }
+
+    public static double sredniaArytmetyczna(int[] tab) {
+        double sum = 0;
+        for (int num : tab) {
+            sum += num;
+        }
+        return sum / tab.length;
+    }
+
+    public static double sredniaGeometryczna(int[] tab) {
+        double product = 1;
+        for (int num : tab) {
+            product *= num;
+        }
+        return Math.pow(product, 1.0 / tab.length);
+    }
+
+    public static double sredniaHarmoniczna(int[] tab) {
+        double sum = 0.0;
+        for (int num : tab) {
+            if (num != 0) {
+                sum += 1.0 / num;
+            }
+        }
+        return tab.length / sum;
+    }
+
+    public static void main(String[] args) {
+        generujMatrix(4, 5);
+        System.out.println();
+
+        int[] tablica = generujTablice(5, 1, 9);
+
+        System.out.println("Ilość liczb nieparzystych: " + ileNieparzystych(tablica));
+        System.out.println("Ilość liczb parzystych: " + ileParzystych(tablica));
+        System.out.println("Ilość liczb dodatnich: " + ileDodatnich(tablica));
+        System.out.println("Ilość liczb ujemnych: " + ileUjemnych(tablica));
+        System.out.println("Ilość liczb zerowych: " + ileZerowych(tablica));
+        System.out.println("Ilość liczb maksymalnych: " + ileMaxymalnych(tablica));
+        System.out.println("Ilość liczb minimalnych: " + ileMinimalnych(tablica));
+        System.out.println("Ilość liczb unikalnych: " + ileUnikalnych(tablica));
+
+        System.out.println("Suma liczb dodatnich: " + sumaDodatnich(tablica));
+        System.out.println("Suma liczb ujemnych: " + sumaUjemnych(tablica));
+        System.out.println("Suma odwrotności liczb: " + sumaOdwrotnosci(tablica));
+        System.out.println("Średnia arytmetyczna: " + sredniaArytmetyczna(tablica));
+        System.out.println("Średnia geometryczna: " + sredniaGeometryczna(tablica));
+        System.out.println("Średnia harmoniczna: " + sredniaHarmoniczna(tablica));
+    }
+}
