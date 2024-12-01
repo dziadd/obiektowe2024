@@ -1,0 +1,63 @@
+import java.util.Objects;
+import java.util.Scanner;
+
+class Produkt{
+    String nazwa;
+    double cena;
+    int iloscNaMagazynie;
+
+    public Produkt(String nazwa, double cena, int iloscNaMagazynie) {
+        this.nazwa = nazwa;
+        this.cena = cena;
+        this.iloscNaMagazynie = iloscNaMagazynie;
+    }
+
+
+    public void wyswietlInformacje(){
+        System.out.println(nazwa);
+        System.out.println("Cena: " + cena);
+        System.out.println("Ilosc na magazynie: " + iloscNaMagazynie);
+        System.out.println();
+    }
+
+    public void dodajDoMagazynu(int ilosc){
+        iloscNaMagazynie += ilosc;
+    }
+
+    public void usunZMagazynu(int ilosc){
+        if(iloscNaMagazynie - ilosc < 0){
+            throw new IllegalArgumentException("Błąd nie ma tylu sztuk na magazynie");
+        }
+        else {
+            iloscNaMagazynie -= ilosc;
+        }
+    }
+
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+
+        Produkt leh = new Produkt("Leh", 4.5, 34);
+        Produkt lomza = new Produkt("Łomża", 3.99, 23);
+        Produkt zubr = new Produkt("Żubr", 2.99, 15);
+
+        leh.wyswietlInformacje();
+        lomza.wyswietlInformacje();
+        zubr.wyswietlInformacje();
+
+        lomza.dodajDoMagazynu(2);
+        lomza.wyswietlInformacje();
+
+        leh.dodajDoMagazynu(5);
+        leh.wyswietlInformacje();
+
+        zubr.usunZMagazynu(16);
+        zubr.wyswietlInformacje();
+
+
+
+
+    }
+}
