@@ -1,5 +1,4 @@
-import java.util.Objects;
-import java.util.Scanner;
+
 
 class Produkt{
     String nazwa;
@@ -20,6 +19,7 @@ class Produkt{
         System.out.println();
     }
 
+
     public void dodajDoMagazynu(int ilosc){
         iloscNaMagazynie += ilosc;
     }
@@ -32,16 +32,86 @@ class Produkt{
             iloscNaMagazynie -= ilosc;
         }
     }
+}
+
+class KoszykZakupowy{
+    private String listaProduktow;
+    private int liczbaProduktow;
+    private double koszt;
+
+    public KoszykZakupowy(){
+        this.listaProduktow = "";
+        this.liczbaProduktow = 0;
+        this.koszt = 0;
+    }
+
+    public void dodajProdukt(Produkt produkt, int ilosc){
+        if (produkt.iloscNaMagazynie >= ilosc){
+            produkt.usunZMagazynu(ilosc);
+
+            if(!listaProduktow.isEmpty()){
+                listaProduktow += ", ";
+            }
+            listaProduktow += produkt.nazwa + " x" + ilosc;
+            koszt += produkt.cena * ilosc;
+            liczbaProduktow += ilosc;
+        }
+        else {
+            System.out.println("Błąd nie wystarczajaca ilosc na magazynie");
+        }
+    }
+
+    public void wyswietlZawartoscKoszyka(){
+        System.out.println("Zawartość koszyka: ");
+        System.out.println(listaProduktow);
+        System.out.println("Liczba produktow w koszyku: " + liczbaProduktow);
+        System.out.println("Całkowity koszt: " + koszt);
+        System.out.println();
+    }
+
+    public double obliczCalkowitaWartosc(){
+        return koszt;
+    }
+
+    public int liczbaProduktowwkoszyku(){
+        return liczbaProduktow;
+    }
 
 }
+
+class Zamowienie{
+    private KoszykZakupowy koszykZakupowy;
+    private String status;
+
+    public Zamowienie(KoszykZakupowy koszykZakupowy, String status){
+        this.koszykZakupowy = koszykZakupowy;
+        this.status = status;
+    }
+
+    public void ustawStatusZamowienia(String nowystatus){
+        this.status = nowystatus;
+    }
+
+    public void wyswietlZamowienie(){
+        koszykZakupowy.wyswietlZawartoscKoszyka();
+        System.out.println("Status zamowienia: " + status);
+        System.out.println();
+    }
+
+}
+
+
+
+
+
 
 
 public class Main {
     public static void main(String[] args) {
 
-        Produkt leh = new Produkt("Leh", 4.5, 34);
-        Produkt lomza = new Produkt("Łomża", 3.99, 23);
-        Produkt zubr = new Produkt("Żubr", 2.99, 15);
+        Produkt leh = new Produkt("Leh", 4.50, 34);
+        Produkt lomza = new Produkt("Łomża", 3.5, 23);
+        Produkt zubr = new Produkt("Żubr", 2.5, 15);
 
         leh.wyswietlInformacje();
         lomza.wyswietlInformacje();
@@ -53,8 +123,29 @@ public class Main {
         leh.dodajDoMagazynu(5);
         leh.wyswietlInformacje();
 
-        zubr.usunZMagazynu(16);
+        zubr.usunZMagazynu(2);
         zubr.wyswietlInformacje();
+
+
+        KoszykZakupowy koszyk = new KoszykZakupowy();
+        koszyk.dodajProdukt(leh, 1);
+        koszyk.dodajProdukt(lomza, 10);
+        koszyk.dodajProdukt(zubr, 1);
+        koszyk.wyswietlZawartoscKoszyka();
+
+        zubr.wyswietlInformacje();
+
+        KoszykZakupowy koszyk2 = new KoszykZakupowy();
+        koszyk2.dodajProdukt(lomza, 12);
+        koszyk2.wyswietlZawartoscKoszyka();
+
+        Zamowienie zamowienie = new Zamowienie(koszyk, "Oczekujące");
+        zamowienie.wyswietlZamowienie();
+        zamowienie.ustawStatusZamowienia("Wylane");
+        zamowienie.wyswietlZamowienie();
+
+
+
 
 
 
