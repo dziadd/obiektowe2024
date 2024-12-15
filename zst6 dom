@@ -1,0 +1,289 @@
+
+
+class Produkt{
+    String nazwa;
+    double cena;
+    int iloscNaMagazynie;
+
+    public Produkt(String nazwa, double cena, int iloscNaMagazynie) {
+        this.nazwa = nazwa;
+        this.cena = cena;
+        this.iloscNaMagazynie = iloscNaMagazynie;
+    }
+
+
+    public void wyswietlInformacje(){
+        System.out.println(nazwa);
+        System.out.println("Cena: " + cena);
+        System.out.println("Ilosc na magazynie: " + iloscNaMagazynie);
+        System.out.println();
+    }
+
+
+    public void dodajDoMagazynu(int ilosc){
+        iloscNaMagazynie += ilosc;
+    }
+
+    public void usunZMagazynu(int ilosc){
+        if(iloscNaMagazynie - ilosc < 0){
+            throw new IllegalArgumentException("Błąd nie ma tylu sztuk na magazynie");
+        }
+        else {
+            iloscNaMagazynie -= ilosc;
+        }
+    }
+}
+
+class KoszykZakupowy{
+    private String listaProduktow;
+    private int liczbaProduktow;
+    private double koszt;
+
+    public KoszykZakupowy(){
+        this.listaProduktow = "";
+        this.liczbaProduktow = 0;
+        this.koszt = 0;
+    }
+
+    public void dodajProdukt(Produkt produkt, int ilosc){
+        if (produkt.iloscNaMagazynie >= ilosc){
+            produkt.usunZMagazynu(ilosc);
+
+            if(!listaProduktow.isEmpty()){
+                listaProduktow += ", ";
+            }
+            listaProduktow += produkt.nazwa + " x" + ilosc;
+            koszt += produkt.cena * ilosc;
+            liczbaProduktow += ilosc;
+        }
+        else {
+            System.out.println("Błąd nie wystarczajaca ilosc na magazynie");
+        }
+    }
+
+    public void wyswietlZawartoscKoszyka(){
+        System.out.println("Zawartość koszyka: ");
+        System.out.println(listaProduktow);
+        System.out.println("Liczba produktow w koszyku: " + liczbaProduktow);
+        System.out.println("Całkowity koszt: " + koszt);
+        System.out.println();
+    }
+
+    public double obliczCalkowitaWartosc(){
+        return koszt;
+    }
+
+    public int liczbaProduktowwkoszyku(){
+        return liczbaProduktow;
+    }
+
+}
+
+class Zamowienie{
+    private KoszykZakupowy koszykZakupowy;
+    private String status;
+
+    public Zamowienie(KoszykZakupowy koszykZakupowy, String status){
+        this.koszykZakupowy = koszykZakupowy;
+        this.status = status;
+    }
+
+    public void ustawStatusZamowienia(String nowystatus){
+        this.status = nowystatus;
+    }
+
+    public void wyswietlZamowienie(){
+        koszykZakupowy.wyswietlZawartoscKoszyka();
+        System.out.println("Status zamowienia: " + status);
+        System.out.class Klient {
+    private String imie;
+    private String nazwisko;
+    private ArrayList<Zamowienie> listaZamowien;
+
+    public Klient(String imie, String nazwisko) {
+        this.imie = imie;
+        this.nazwisko = nazwisko;
+        this.listaZamowien = new ArrayList<>();
+    }
+
+    public void dodajZamowienie(Zamowienie zamowienie) {
+        listaZamowien.add(zamowienie);
+    }
+
+    public void wyswietlHistorieZamowien() {
+        System.out.println("Historia zamówień dla klienta: " + imie + " " + nazwisko);
+        for (int i = 0; i < listaZamowien.size(); i++) {
+            System.out.println("Zamówienie " + (i + 1) + ":");
+            listaZamowien.get(i).wyswietlZamowienie();
+        }
+    }
+
+    public double obliczLacznyKosztZamowien() {
+        double suma = 0;
+        for (Zamowienie zamowienie : listaZamowien) {
+            suma += zamowienie.koszykZakupowy.obliczCalkowitaWartosc();
+        }
+        return suma;
+    }
+}
+
+
+
+class Sklep {
+    private ArrayList<Produkt> produkty;
+
+    public Sklep() {
+        this.produkty = new ArrayList<>();
+    }
+
+    public void dodajProdukt(Produkt produkt) {
+        produkty.add(produkt);
+    }
+
+    public void wyswietlOferte() {
+        System.out.println("Oferta sklepu:");
+        for (Produkt produkt : produkty) {
+            produkt.wyswietlInformacje();
+        }
+    }
+
+    public Produkt wyszukajProdukt(String nazwa) {
+        for (Produkt produkt : produkty) {
+            if (produkt.nazwa.equalsIgnoreCase(nazwa)) {
+                return produkt;
+            }
+        }
+        System.out.println("Produkt o nazwie " + nazwa + " nie został znaleziony.");
+        return null;
+    }
+
+    public void zakupy(KoszykZakupowy koszyk, String nazwaProduktu, int ilosc) {
+        Produkt produkt = wyszukajProdukt(nazwaProduktu);
+        if (produkt != null) {
+            koszyk.dodajProdukt(produkt, ilosc);
+        }
+    }
+}
+
+class Platnosc {
+    private double kwota;
+    private String statusPlatnosci;
+
+    public Platnosc(double kwota) {
+        this.kwota = kwota;
+        this.statusPlatnosci = "Nieopłacone";
+    }
+
+    public void zaplac() {
+        this.statusPlatnosci = "Opłacone";
+        System.out.println("Płatność została zrealizowana. Status: " + statusPlatnosci);
+    }
+
+    public String getStatusPlatnosci() {
+        return statusPlatnosci;
+    }
+
+    public double getKwota() {
+        return kwota;
+    }
+}
+
+
+
+class Zamowienie {
+    public KoszykZakupowy koszykZakupowy;
+    private String status;
+    private Platnosc platnosc;
+
+    public Zamowienie(KoszykZakupowy koszykZakupowy, String status) {
+        this.koszykZakupowy = koszykZakupowy;
+        this.status = status;
+        this.platnosc = new Platnosc(koszykZakupowy.obliczCalkowitaWartosc());
+    }
+
+    public void ustawStatusZamowienia(String nowyStatus) {
+        this.status = nowyStatus;
+    }
+
+    public void finalizujZamowienie() {
+        if (platnosc.getStatusPlatnosci().equals("Opłacone")) {
+            this.status = "Gotowe do wysyłki";
+            System.out.println("Zamówienie zostało zfinalizowane i jest gotowe do wysyłki.");
+        } else {
+            System.out.println("Nie można zfinalizować zamówienia. Płatność nie została zrealizowana.");
+        }
+    }
+
+    public void zwrocProdukt(Produkt produkt, int ilosc) {
+        produkt.dodajDoMagazynu(ilosc);
+        koszykZakupowy.dodajProdukt(produkt, -ilosc);
+        System.out.println("Produkt został zwrócony do magazynu.");
+    }
+
+    public void wyswietlZamowienie() {
+        koszykZakupowy.wyswietlZawartoscKoszyka();
+        System.out.println("Status zamówienia: " + status);
+        System.out.println("Status płatności: " + platnosc.getStatusPlatnosci());
+        System.out.println();
+    }
+
+    public void zaplac() {
+        platnosc.zaplac();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+public class Main {
+    public static void main(String[] args) {
+
+        Produkt leh = new Produkt("Leh", 4.50, 34);
+        Produkt lomza = new Produkt("Łomża", 3.5, 23);
+        Produkt zubr = new Produkt("Żubr", 2.5, 15);
+
+        leh.wyswietlInformacje();
+        lomza.wyswietlInformacje();
+        zubr.wyswietlInformacje();
+
+        lomza.dodajDoMagazynu(2);
+        lomza.wyswietlInformacje();
+
+        leh.dodajDoMagazynu(5);
+        leh.wyswietlInformacje();
+
+        zubr.usunZMagazynu(2);
+        zubr.wyswietlInformacje();
+
+
+        KoszykZakupowy koszyk = new KoszykZakupowy();
+        koszyk.dodajProdukt(leh, 1);
+        koszyk.dodajProdukt(lomza, 10);
+        koszyk.dodajProdukt(zubr, 1);
+        koszyk.wyswietlZawartoscKoszyka();
+
+        zubr.wyswietlInformacje();
+
+        KoszykZakupowy koszyk2 = new KoszykZakupowy();
+        koszyk2.dodajProdukt(lomza, 12);
+        koszyk2.wyswietlZawartoscKoszyka();
+
+        Zamowienie zamowienie = new Zamowienie(koszyk, "Oczekujące");
+        zamowienie.wyswietlZamowienie();
+        zamowienie.ustawStatusZamowienia("Wylane");
+        zamowienie.wyswietlZamowienie();
+
+
+
+
+
+
+
+    }
+}
