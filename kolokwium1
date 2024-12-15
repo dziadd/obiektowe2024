@@ -1,0 +1,175 @@
+import java.util.ArrayList;
+import java.util.Objects;
+
+class Elf{
+    private String imie;
+    private int wiek;
+    private String stanowisko;
+
+
+    public Elf(String imie, int wiek, String stanowisko){
+        this.imie = imie;
+        this.wiek = wiek;
+        this.stanowisko = stanowisko;
+    }
+
+
+    public void przedstawSie(){
+        System.out.println("Cześć, nazywam się " + imie + ", mam " + wiek + " lat, a moje stanowisko pracy to " + stanowisko);
+    }
+
+    @Override
+    public String toString(){
+        return imie + " " + wiek + " " + stanowisko;
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(imie,wiek,stanowisko);
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Elf elf = (Elf) obj;
+        return imie.equals(elf.imie);
+    }
+
+
+}
+
+class Fabryka{
+    private ArrayList<Elf> elfy;
+    private int dlGeo;
+    private int szGeo;
+
+    public Fabryka(int dlGeo, int szGeo){
+        this.elfy = new ArrayList<>();
+        this.dlGeo = dlGeo;
+        this.szGeo = szGeo;
+    }
+
+    public void dodajPracownika(Elf elf){
+        elfy.add(elf);
+    }
+
+    public void usunPracownika(Elf elf){
+        elfy.remove(elf);
+    }
+
+    public void najstarszyPracownik(){
+        System.out.println(elfy);
+    }
+
+    @Override
+    public String toString(){
+        return elfy + " " + dlGeo + " " + szGeo;
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(elfy, dlGeo , szGeo);
+    }
+
+
+
+}
+
+class Renifer{
+    public String imie;
+    public int predkosc;
+
+    public Renifer(String imie, int predkosc){
+
+        this.imie = imie;
+        this.predkosc = predkosc;
+
+    }
+
+    public void nakarmRenifera(){
+        predkosc += 5;
+        System.out.println("Aktualna predkosc renifera " + imie + " " + predkosc);
+    }
+
+    @Override
+    public String toString(){
+        return imie + " " + predkosc;
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(imie,predkosc);
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Renifer renifer = (Renifer) obj;
+        return imie.equals(renifer.imie);
+    }
+
+}
+
+
+class Sanie{
+    private String listaReniferow;
+    private double sumapredkosci;
+
+    public Sanie(){
+        this.listaReniferow = "";
+        this.sumapredkosci = 0;
+    }
+
+    public void dodajRenifera(Renifer renifer){
+        if(!listaReniferow.isEmpty()){
+            listaReniferow += ", ";
+        }
+        listaReniferow += renifer.imie;
+        System.out.println(listaReniferow);
+        sumapredkosci += renifer.predkosc;
+
+    }
+
+
+
+    public void sumaPredkosci(){
+        System.out.println("Suma predkosci: " + sumapredkosci);
+    }
+
+    @Override
+    public String toString(){
+        return listaReniferow + " " + sumapredkosci;
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(listaReniferow,sumapredkosci);
+    }
+
+
+}
+
+
+
+
+public class Main {
+    public static void main(String[] args) {
+        Elf Bogdan  = new Elf("Bogdan" , 75,"kierowca");
+        Elf Marian = new Elf("Marian",65,"kucharz.");
+        Marian.przedstawSie();
+        Renifer kon = new Renifer("Kon",10);
+        kon.nakarmRenifera();
+        Renifer kon2 = new Renifer("Zbyszek",10);
+        Fabryka fabryka  = new Fabryka(90,90);
+        fabryka.dodajPracownika(Marian);
+        fabryka.dodajPracownika(Bogdan);
+        fabryka.najstarszyPracownik();
+        Sanie sanie = new Sanie();
+        sanie.dodajRenifera(kon);
+        sanie.dodajRenifera(kon2);
+        sanie.sumaPredkosci();
+
+    }
+}
