@@ -1,0 +1,233 @@
+import java.util.ArrayList;
+import java.util.Objects;
+
+class Produkt {
+    String nazwa;
+    double cena;
+    int iloscNaMagazynie;
+
+    public Produkt(String nazwa, double cena, int iloscNaMagazynie) {
+        this.nazwa = nazwa;
+        this.cena = cena;
+        this.iloscNaMagazynie = iloscNaMagazynie;
+    }
+
+    public void wyswietlInformacje() {
+        System.out.println("Produkt: " + nazwa);
+        System.out.println("Cena: " + cena);
+        System.out.println("Ilość na magazynie: " + iloscNaMagazynie);
+        System.out.println();
+    }
+
+    public void dodajDoMagazynu(int ilosc) {
+        iloscNaMagazynie += ilosc;
+    }
+
+    public void usunZMagazynu(int ilosc) {
+        if (iloscNaMagazynie - ilosc < 0) {
+            throw new IllegalArgumentException("Błąd: nie ma tylu sztuk na magazynie");
+        } else {
+            iloscNaMagazynie -= ilosc;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Produkt: " + nazwa + ", Cena: " + cena + ", Ilość na magazynie: " + iloscNaMagazynie;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nazwa, cena);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Produkt produkt = (Produkt) obj;
+        return Double.compare(produkt.cena, cena) == 0 && nazwa.equals(produkt.nazwa);
+    }
+}
+
+class KoszykZakupowy {
+    private String listaProduktow;
+    private int liczbaProduktow;
+    private double koszt;
+
+    public KoszykZakupowy() {
+        this.listaProduktow = "";
+        this.liczbaProduktow = 0;
+        this.koszt = 0;
+    }
+
+    public void dodajProdukt(Produkt produkt, int ilosc) {
+        if (produkt.iloscNaMagazynie >= ilosc) {
+            produkt.usunZMagazynu(ilosc);
+            if (!listaProduktow.isEmpty()) {
+                listaProduktow += ", ";
+            }
+            listaProduktow += produkt.nazwa + " x" + ilosc;
+            koszt += produkt.cena * ilosc;
+            liczbaProduktow += ilosc;
+        } else {
+            System.out.println("Błąd: niewystarczająca ilość na magazynie");
+        }
+    }
+
+    public void wyswietlZawartoscKoszyka() {
+        System.out.println("Zawartość koszyka: ");
+        System.out.println(listaProduktow);
+        System.out.println("Liczba produktów w koszyku: " + liczbaProduktow);
+        System.out.println("Całkowity koszt: " + koszt);
+        System.out.println();
+    }
+
+    public double obliczCalkowitaWartosc() {
+        return koszt;
+    }
+
+    public int liczbaProduktowWKoszyku() {
+        return liczbaProduktow;
+    }
+}
+
+class Adres {
+    private String ulica;
+    private int numerDomu;
+    private Integer numerMieszkania;
+    private String miasto;
+    private String kodPocztowy;
+
+    public Adres(String ulica, int numerDomu, String miasto, String kodPocztowy) {
+        this.ulica = ulica;
+        this.numerDomu = numerDomu;
+        this.miasto = miasto;
+        this.kodPocztowy = kodPocztowy;
+    }
+
+    public Adres(String ulica, int numerDomu, int numerMieszkania, String miasto, String kodPocztowy) {
+        this(ulica, numerDomu, miasto, kodPocztowy);
+        this.numerMieszkania = numerMieszkania;
+    }
+
+    public void pokaz() {
+        System.out.println(kodPocztowy + " " + miasto);
+        System.out.println(ulica + " " + numerDomu + (numerMieszkania != null ? "/" + numerMieszkania : ""));
+    }
+
+    public boolean przed(Adres innyAdres) {
+        return this.kodPocztowy.compareTo(innyAdres.kodPocztowy) < 0;
+    }
+}
+
+class Platnosc {
+    private double kwota;
+    private String statusPlatnosci;
+
+    public Platnosc(double kwota) {
+        this.kwota = kwota;
+        this.statusPlatnosci = "Nieopłacone";
+    }
+
+    public void zaplac() {
+        this.statusPlatnosci = "Opłacone";
+        System.out.println("Płatność zrealizowana. Status: " + statusPlatnosci);
+    }
+
+    public String getStatusPlatnosci() {
+        return statusPlatnosci;
+    }
+
+    public double getKwota() {
+        return kwota;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Platnosc platnosc = (Platnosc) obj;
+        return Double.compare(platnosc.kwota, kwota) == 0 && statusPlatnosci.equals(platnosc.statusPlatnosci);
+    }
+}
+
+class Zamowienie {
+    public KoszykZakupowy koszykZakupowy;
+    private String status;
+    private Platnosc platnosc;
+
+    public Zamowienie(KoszykZakupowy koszykZakupowy, String status) {
+        this.koszykZakupowy = koszykZakupowy;
+        this.status = status;
+        this.platnosc = new Platnosc(koszykZakupowy.obliczCalkowitaWartosc());
+    }
+
+    public void finalizujZamowienie() {
+        if (platnosc.getStatusPlatnosci().equals("Opłacone")) {
+            this.status = "Gotowe do wysyłki";
+            System.out.println("Zamówienie gotowe do wysyłki.");
+        } else {
+            System.out.println("Nie można zfinalizować. Płatność nie została zrealizowana.");
+        }
+    }
+
+    public void wyswietlZamowienie() {
+        koszykZakupowy.wyswietlZawartoscKoszyka();
+        System.out.println("Status zamówienia: " + status);
+        System.out.println("Status płatności: " + platnosc.getStatusPlatnosci());
+    }
+
+    public void zaplac() {
+        platnosc.zaplac();
+    }
+}
+
+class Sklep {
+    private ArrayList<Produkt> produkty;
+
+    public Sklep() {
+        this.produkty = new ArrayList<>();
+    }
+
+    public void dodajProdukt(Produkt produkt) {
+        produkty.add(produkt);
+    }
+
+    public void wyswietlOferte() {
+        System.out.println("Oferta sklepu:");
+        for (Produkt produkt : produkty) {
+            produkt.wyswietlInformacje();
+        }
+    }
+
+    public Produkt wyszukajProdukt(String nazwa) {
+        for (Produkt produkt : produkty) {
+            if (produkt.nazwa.equalsIgnoreCase(nazwa)) {
+                return produkt;
+            }
+        }
+        System.out.println("Nie znaleziono produktu.");
+        return null;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Produkt produkt1 = new Produkt("Mleko", 2.5, 20);
+        Produkt produkt2 = new Produkt("Chleb", 3.0, 15);
+        produkt1.wyswietlInformacje();
+        produkt2.wyswietlInformacje();
+
+        KoszykZakupowy koszyk = new KoszykZakupowy();
+        koszyk.dodajProdukt(produkt1, 3);
+        koszyk.dodajProdukt(produkt2, 2);
+        koszyk.wyswietlZawartoscKoszyka();
+
+        Zamowienie zamowienie = new Zamowienie(koszyk, "Oczekujące");
+        zamowienie.wyswietlZamowienie();
+        zamowienie.zaplac();
+        zamowienie.finalizujZamowienie();
+        zamowienie.wyswietlZamowienie();
+    }
+}
