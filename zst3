@@ -32,7 +32,6 @@ class zadania {
     }
 
     public static void trojkiPitagorejskie(int n) {
-        // Iterujemy przez możliwe wartości a, b i c
         for (int a = 1; a <= n; a++) {
             for (int b = a; b <= n; b++) {  // b >= a, aby uniknąć duplikatów
                 int c = (int) Math.sqrt(a * a + b * b);
@@ -45,16 +44,13 @@ class zadania {
     }
 
     public static void funKwaRozwiazania(int n1) {
-        // Iteracja przez wartości a, b, c w zakresie od -n do n
         for (int a = -n1; a <= n1; a++) {
-            if (a == 0) continue;  // Pomijamy a = 0, aby zachować równanie kwadratowe
+            if (a == 0) continue; 
 
             for (int b = -n1; b <= n1; b++) {
                 for (int c = -n1; c <= n1; c++) {
-                    // Obliczamy deltę: Δ = b^2 - 4ac
                     int delta = b * b - 4 * a * c;
 
-                    // Sprawdzamy, czy delta jest >= 0 (warunek na istnienie rozwiązań rzeczywistych)
                     if (delta >= 0) {
                         System.out.println("(" + a + ", " + b + ", " + c + ")");
                     }
@@ -64,16 +60,15 @@ class zadania {
     }
 
     public static void funKwaDelta(int n2) {
-        // Iteracja przez wartości a, b, c w zakresie od -n do n
         for (int a = -n2; a <= n2; a++) {
             if (a == 0) continue;  // Pomijamy a = 0, aby zachować równanie kwadratowe
 
             for (int b = -n2; b <= n2; b++) {
                 for (int c = -n2; c <= n2; c++) {
-                    // Obliczamy deltę: Δ = b^2 - 4ac
+
                     int delta = b * b - 4 * a * c;
 
-                    // Sprawdzamy, czy delta jest >= 0 i czy jej pierwiastek jest liczbą całkowitą
+
                     if (delta >= 0) {
                         int sqrtDelta = (int) Math.sqrt(delta);
                         if (sqrtDelta * sqrtDelta == delta) {  // Czy sqrt(delta) jest całkowity
@@ -93,7 +88,7 @@ class zadania {
         return true;
     }
 
-    // Funkcja do wypisania wszystkich liczb pierwszych od 2 do n3
+
     public static void liczbyPierwsze(int n3) {
         for (int i = 2; i <= n3; i++) {
             if (czyPierwsza(i)) {
